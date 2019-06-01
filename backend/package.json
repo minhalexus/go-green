@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "fs": "0.0.1-security",
+    "iex-api": "0.0.3",
+    "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^5.5.11",
+    "morgan": "~1.9.1",
+    "nodemon": "^1.19.1",
+    "pdfmake": "^0.1.56",
+    "python-shell": "^1.0.7",
+    "r-script": "0.0.3"
+  }
+}
