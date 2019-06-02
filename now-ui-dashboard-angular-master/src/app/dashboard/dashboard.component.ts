@@ -18,6 +18,12 @@ export class DashboardComponent implements OnInit {
   public ctx;
   public gradientFill;
   public lineBigDashboardChartData:Array<any>;
+  public gasData:Array<any>;
+  public coalData:Array<any>;
+  public oilData:Array<any>;
+  public hydroData:Array<any>;
+  public solarData:Array<any>;
+
   public lineBigDashboardChartOptions:any;
   public lineBigDashboardChartLabels:Array<any>;
   public lineBigDashboardChartColors:Array<any>
@@ -101,7 +107,77 @@ export class DashboardComponent implements OnInit {
           fill: true,
 
           borderWidth: 2,
-          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
+          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 23]
+        }
+      ];
+      this.gasData = [
+        {
+          label: "Data",
+
+          pointBorderWidth: 1,
+          pointHoverRadius: 7,
+          pointHoverBorderWidth: 2,
+          pointRadius: 5,
+          fill: true,
+
+          borderWidth: 2,
+          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 23]
+        }
+      ];
+      this.coalData = [
+        {
+          label: "Data",
+
+          pointBorderWidth: 1,
+          pointHoverRadius: 7,
+          pointHoverBorderWidth: 2,
+          pointRadius: 5,
+          fill: true,
+
+          borderWidth: 2,
+          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 23]
+        }
+      ];
+      this.oilData = [
+        {
+          label: "Data",
+
+          pointBorderWidth: 1,
+          pointHoverRadius: 7,
+          pointHoverBorderWidth: 2,
+          pointRadius: 5,
+          fill: true,
+
+          borderWidth: 2,
+          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 23]
+        }
+      ];
+      this.hydroData = [
+        {
+          label: "Data",
+
+          pointBorderWidth: 1,
+          pointHoverRadius: 7,
+          pointHoverBorderWidth: 2,
+          pointRadius: 5,
+          fill: true,
+
+          borderWidth: 2,
+          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 23]
+        }
+      ];
+      this.solarData = [
+        {
+          label: "Data",
+
+          pointBorderWidth: 1,
+          pointHoverRadius: 7,
+          pointHoverBorderWidth: 2,
+          pointRadius: 5,
+          fill: true,
+
+          borderWidth: 2,
+          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95, 23]
         }
       ];
       this.lineBigDashboardChartColors = [
@@ -114,7 +190,7 @@ export class DashboardComponent implements OnInit {
          pointHoverBorderColor: this.chartColor,
        }
      ];
-    this.lineBigDashboardChartLabels = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    this.lineBigDashboardChartLabels = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2039,2040,2041,2042,2043,2044,2045,2046,2047,2048,2049];
     this.lineBigDashboardChartOptions = {
 
           layout: {
@@ -430,8 +506,103 @@ export class DashboardComponent implements OnInit {
     console.log(this.profileForm.value);
 
     this.energyService.postEnergyValues( this.profileForm.value as Energy ).subscribe(
-      (response) => console.log(response)
-    );
+      (response) => {
+        console.log(response);
+        var a = response.result[0];
+        console.log(a[0]);
+
+        var output = [];
+
+        for(var i = 0; i < 30; i++){
+          output.push(response.result[0][i] + response.result[1][i] + response.result[2][i] + response.result[3][i] + response.result[4][i]);
+        }
+
+        console.log(output);
+
+        this.lineBigDashboardChartData = [
+          {
+            label: "Data",
+  
+            pointBorderWidth: 1,
+            pointHoverRadius: 7,
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            fill: true,
+            borderWidth: 2,
+            data: output
+          }
+        ]; 
+
+        this.gasData = [
+          {
+            label: "Data",
+  
+            pointBorderWidth: 1,
+            pointHoverRadius: 7,
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            fill: true,
+            borderWidth: 2,
+            data: response.result[0]
+          }
+        ]; 
+
+        this.coalData = [
+          {
+            label: "Data",
+  
+            pointBorderWidth: 1,
+            pointHoverRadius: 7,
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            fill: true,
+            borderWidth: 2,
+            data: response.result[1]
+          }
+        ]; 
+
+        this.oilData = [
+          {
+            label: "Data",
+  
+            pointBorderWidth: 1,
+            pointHoverRadius: 7,
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            fill: true,
+            borderWidth: 2,
+            data: response.result[2]
+          }
+        ]; 
+
+        this.hydroData = [
+          {
+            label: "Data",
+  
+            pointBorderWidth: 1,
+            pointHoverRadius: 7,
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            fill: true,
+            borderWidth: 2,
+            data: response.result[3]
+          }
+        ]; 
+
+        this.solarData = [
+          {
+            label: "Data",
+  
+            pointBorderWidth: 1,
+            pointHoverRadius: 7,
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            fill: true,
+            borderWidth: 2,
+            data: response.result[4]
+          }
+        ]; 
+    });
 
     this.profileForm.reset(); 
   }

@@ -16,6 +16,7 @@ PythonShell.run('my_script.py', options, function (err, results) {
   if (err) throw err;
 
   console.log('results: %j', results);
+  console.log(results[0]);
   console.log('finished');
 });
 

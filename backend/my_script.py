@@ -1,31 +1,137 @@
+import sys
 import numpy as np
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LinearRegression
 
-pd.set_option('display.max_rows', 100)
-pd.set_option('display.max_columns', 128)
-pd.set_option('display.width', 5000)
+df = pd.read_csv('natural-gas-prices.csv')
 
-df = pd.read_csv('SampleData.csv')
+df = df.drop('Code', axis=1)
 
-y = df['Result']
-df = df.drop('Result', axis=1)
+mean_consumption = 1715.906749
+mean_production = 1376.898850
+
+df = df.fillna(df.mean())
+
+y = df['Gas - Prices (US dollars per MWh)']
+df = df.drop('Gas - Prices (US dollars per MWh)', axis=1)
+df = df.drop('Entity', axis=1)
+
+# Mean coal cosumption 7522.123413
+# Mean Coal Production 6.692538
+
+reg = LinearRegression().fit(df, y)
+# # #
+
+result = []
+for i in range(int(sys.argv[-2]), int(sys.argv[-1])):
+    result.append(reg.predict(np.array([[i, mean_consumption, mean_production]]))[0] * float(sys.argv[1]))
+
+print(result)
 
 
-df = pd.get_dummies(df, columns=['Gender'])
 
-#print(df)
+############################ COAL REGRESSION ########################################
 
-# model = DecisionTreeClassifier()
-# model.fit(df, y)
+df = pd.read_csv('coal_csv.csv')
 
-# Import the model we are using
-from sklearn.ensemble import RandomForestClassifier
-# Instantiate model with 1000 decision trees
-model = RandomForestClassifier(n_estimators = 1000, random_state = 42)
-# Train the model on training data
-model.fit(df, y)
+df = df.drop('Code', axis=1)
+df = df.drop('Reserve', axis=1)
 
-print(model.predict([[300,400,0,0]])[-1])
-print(model.predict([[300,5000,0,1]])[-1])
+df = df.fillna(df.mean())
 
+y = df['Coal - Prices (US dollars per megawatt-hour)']
+df = df.drop('Coal - Prices (US dollars per megawatt-hour)', axis=1)
+df = df.drop('Entity', axis=1)
+
+# Mean coal cosumption 7522.123413
+# Mean Coal Production 6.692538
+
+reg = LinearRegression().fit(df, y)
+# #
+result = []
+
+for i in range(int(sys.argv[-2]), int(sys.argv[-1])):
+    result.append(reg.predict(np.array([[i, 7522, 7]]))[0] * float(sys.argv[2]))
+
+print(result)
+
+
+############################## OIL REGRESSION #########################################
+
+df = pd.read_csv('pump-price-for-gasoline-us-per-liter-2.csv')
+
+df = df.drop('Code', axis=1)
+
+df = df.fillna(df.mean())
+
+mean_production = 193.369331
+mean_consumption = 319.224521
+
+y = df['Pump price for gasoline (US$ per liter) (US$ per liter)']
+df = df.drop('Pump price for gasoline (US$ per liter) (US$ per liter)', axis=1)
+df = df.drop('Entity', axis=1)
+
+# # Mean coal cosumption 7522.123413
+# # Mean Coal Production 6.692538
+#
+reg = LinearRegression().fit(df, y)
+# # #
+#
+result = []
+for i in range(int(sys.argv[-2]), int(sys.argv[-1])):
+    result.append(reg.predict(np.array([[i, mean_production, mean_consumption]]))[0]*10 * float(sys.argv[3]))
+
+print(result)
+
+############################## Hydro Regression ########################################
+
+df = pd.read_csv('hydropower.csv')
+
+df = df.drop('Code', axis=1)
+df = df.drop('Consumption', axis=1)
+
+df = df.fillna(df.mean())
+
+mean_production = 182.692037
+
+y = df['Investment in Renewables by Region (IRENA (2016)) (international-$)']
+df = df.drop('Investment in Renewables by Region (IRENA (2016)) (international-$)', axis=1)
+df = df.drop('Entity', axis=1)
+
+# Mean coal cosumption 7522.123413
+# Mean Coal Production 6.692538
+
+reg = LinearRegression().fit(df, y)
+# #
+
+result = []
+for i in range(int(sys.argv[-2]), int(sys.argv[-1])):
+    result.append(reg.predict(np.array([[i, mean_production]]))[0]/1000000000 * float(sys.argv[4]))
+
+print(result)
+
+############################### Solar Regression ##########################################
+
+df = pd.read_csv('solar.csv')
+
+df = df.drop('Code', axis=1)
+
+df = df.fillna(df.mean())
+
+mean_consumption = 5.818743
+mean_production = 4.260637
+
+y = df['Investment in Renewables by Region (IRENA (2016)) (international-$)']
+df = df.drop('Investment in Renewables by Region (IRENA (2016)) (international-$)', axis=1)
+df = df.drop('Entity', axis=1)
+
+# Mean coal cosumption 7522.123413
+# Mean Coal Production 6.692538
+
+reg = LinearRegression().fit(df, y)
+# #
+result = []
+for i in range(int(sys.argv[-2]), int(sys.argv[-1])):
+    result.append(reg.predict(np.array([[i, mean_consumption, mean_production]]))[0]/1000000000 * float(sys.argv[5]))
+
+print(result)
