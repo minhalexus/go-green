@@ -13,7 +13,7 @@
     "fs": "0.0.1-security",
     "iex-api": "0.0.3",
     "isomorphic-fetch": "^2.2.1",
-    "mongoose": "^5.5.11",
+    "mongoose": "^5.7.5",
     "morgan": "~1.9.1",
     "nodemon": "^1.19.1",
     "pdfmake": "^0.1.56",
